@@ -8,13 +8,13 @@ class CategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> categories = [
-      'All',
-      'Business',
-      'Entertainment',
-      'Health',
-      'Science',
-      'Sports',
-      'Technology',
+      'general',
+      'business',
+      'entertainment',
+      'health',
+      'science',
+      'sports',
+      'technology',
     ];
 
     return SizedBox(
