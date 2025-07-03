@@ -8,6 +8,7 @@ class AppStyles {
     fontSize: 17,
     fontWeight: FontWeight.w800,
     color: ColorsManger.redColor,
+    letterSpacing: 6,
     fontFamily: 'Inter',
   );
 
@@ -54,8 +55,8 @@ class AppStyles {
     fontWeight: FontWeight.w500,
     fontFamily: fontFamily,
   );
-  static const TextStyle font10Weight600 = TextStyle(
-    fontSize: 10,
+  static const TextStyle font14Weight600 = TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.w600,
     fontFamily: fontFamily,
   );
