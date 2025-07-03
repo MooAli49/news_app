@@ -3,7 +3,8 @@ import 'package:news_app/core/style/app_styles.dart';
 import 'package:news_app/core/theme/colors_manger.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, this.isDeatailsScreen = false});
+  final bool isDeatailsScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +12,21 @@ class CustomAppBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         children: [
-          Image.asset(
-            'assets/images/grid_icon.png',
-            fit: BoxFit.cover,
-            height: 30,
-          ),
+          isDeatailsScreen
+              ? IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: ColorsManger.darkGreyColor,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+              : Image.asset(
+                'assets/images/grid_icon.png',
+                fit: BoxFit.cover,
+                height: 30,
+              ),
           const Spacer(),
           const Text('News', style: AppStyles.font17Weight800Red),
           const Spacer(),
