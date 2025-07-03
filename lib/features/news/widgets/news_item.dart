@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/style/app_styles.dart';
 import 'package:news_app/core/theme/colors_manger.dart';
-import 'package:news_app/screens/details_screen.dart';
+import 'package:news_app/features/news/screens/details_screen.dart';
 
 class NewsItem extends StatelessWidget {
   const NewsItem({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/widgets/news_item.dart';
+import 'package:news_app/features/news/widgets/news_item.dart';
 
 class NewsSection extends StatelessWidget {
   const NewsSection({super.key});

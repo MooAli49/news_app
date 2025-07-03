@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/widgets/categories_section.dart';
-import 'package:news_app/widgets/custom_app_bar.dart';
-import 'package:news_app/widgets/custom_search_bar.dart';
-import 'package:news_app/widgets/latest_news_section.dart';
-import 'package:news_app/widgets/news_section.dart';
+import 'package:news_app/features/news/widgets/categories_section.dart';
+import 'package:news_app/features/news/widgets/custom_app_bar.dart';
+import 'package:news_app/features/news/widgets/custom_search_bar.dart';
+import 'package:news_app/features/news/widgets/latest_news_section.dart';
+import 'package:news_app/features/news/widgets/news_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

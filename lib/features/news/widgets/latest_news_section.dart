@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/style/app_styles.dart';
-import 'package:news_app/widgets/latest_news_item.dart';
+import 'package:news_app/features/news/widgets/latest_news_item.dart';
 
 class LatestNewsSection extends StatelessWidget {
   const LatestNewsSection({super.key});

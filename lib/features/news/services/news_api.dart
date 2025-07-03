@@ -18,7 +18,7 @@ class NewsApi {
     ),
   );
 
-  Future<Either<List<NewsModel>, dynamic>> fetchTopHeadlines({
+  Future<Either<List<NewsModel>, String>> fetchNews({
     String country = 'us',
     String category = 'general',
   }) async {
