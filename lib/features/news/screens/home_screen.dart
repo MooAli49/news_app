@@ -17,25 +17,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: 20.0,
-            ),
-            child: Column(
-              children: [
-                const CustomAppBar(),
-                const SizedBox(height: 20),
-                const CustomSearchBar(),
-                const SizedBox(height: 20),
-                const LatestNewsSection(),
-                const SizedBox(height: 20),
-                const CategoriesSection(),
-                const SizedBox(height: 20),
-                const NewsSection(),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(child: const CustomAppBar()),
+              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverToBoxAdapter(child: const CustomSearchBar()),
+              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverList(
+                delegate: SliverChildListDelegate([LatestNewsSection()]),
+              ),
+              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverList(
+                delegate: SliverChildListDelegate([const CategoriesSection()]),
+              ),
+              SliverToBoxAdapter(child: const SizedBox(height: 20)),
+              SliverList(
+                delegate: SliverChildListDelegate([const NewsSection()]),
+              ),
+            ],
           ),
         ),
       ),

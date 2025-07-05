@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/features/news/controller/news_cubit.dart';
 import 'package:news_app/features/news/screens/home_screen.dart';
 
 void main() {
@@ -15,7 +17,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomeScreen(),
+      home: BlocProvider(
+        create:
+            (context) =>
+                NewsCubit()
+                  ..fetchTopHeadlines()
+                  ..fetchGeneral(),
+        child: const HomeScreen(),
+      ),
     );
   }
 }

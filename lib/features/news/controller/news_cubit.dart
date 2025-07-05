@@ -7,15 +7,25 @@ class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitial());
   final NewsApi _newsApi = NewsApi();
 
-  Future<void> fetchNews({
+  Future<void> fetchGeneral() async {
+    emit(NewsLoading());
+    final response = await _newsApi.fetchGeneral();
+    response.fold(
+      (newsList) {
+        emit(NewsLoaded(newsList));
+      },
+      (error) {
+        emit(NewsError(error.toString()));
+      },
+    );
+  }
+
+  Future<void> fetchTopHeadlines({
     String category = 'general',
     String country = 'us',
   }) async {
     emit(NewsLoading());
-    final response = await _newsApi.fetchNews(
-      country: country,
-      category: category,
-    );
+    final response = await _newsApi.fetchTopHeadlines(category: category);
     response.fold(
       (newsList) {
         emit(NewsLoaded(newsList));
