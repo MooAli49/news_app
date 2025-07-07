@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/core/model/news_model.dart';
 import 'package:news_app/core/style/app_styles.dart';
 import 'package:news_app/core/theme/colors_manger.dart';
 import 'package:news_app/features/news/controller/news_cubit.dart';
@@ -45,6 +46,7 @@ class LatestNewsSection extends StatelessWidget {
           // Content Section
           BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
+              
               switch (state) {
                 case NewsInitial():
                   return _buildEmptyState();
@@ -189,15 +191,36 @@ class LatestNewsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildNewsList(List newsList) {
+  Widget _buildNewsList(List<NewsModel> newsList) {
+    if (newsList.isEmpty) {
+      return _buildEmptyState();
+    }
+    
     return SizedBox(
       height: 220,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemCount: newsList.length,
-        itemBuilder:
-            (context, index) => LatestNewsItem(newsModel: newsList[index]),
+        itemBuilder: (context, index) {
+          try {
+            return LatestNewsItem(newsModel: newsList[index]);
+          } catch (e) {
+            // Return a placeholder if there's an error with a specific item
+            return Container(
+              margin: const EdgeInsets.only(left: 10.0),
+              width: MediaQuery.of(context).size.width * 0.75,
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: const Center(
+                child: Text('Error loading news item'),
+              ),
+            );
+          }
+        },
       ),
     );
   }

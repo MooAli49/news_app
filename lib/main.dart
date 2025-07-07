@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/core/theme/theme_cubit.dart';
 import 'package:news_app/features/news/controller/news_cubit.dart';
 import 'package:news_app/features/news/screens/home_screen.dart';
 
@@ -12,18 +13,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: BlocProvider(
-        create:
-            (context) =>
-                NewsCubit()
-                  ..fetchTopHeadlines()
-                  ..fetchGeneral(),
-        child: const HomeScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(
+          create:
+              (_) =>
+                  NewsCubit()
+                    ..fetchLatestNews()
+                    ..fetchCategoryNews('general'),
+        ),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeData>(
+        builder: (context, theme) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: theme,
+            home: const HomeScreen(),
+          );
+        },
       ),
     );
   }

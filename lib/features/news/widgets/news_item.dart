@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/model/news_model.dart';
 import 'package:news_app/core/style/app_styles.dart';
 import 'package:news_app/core/theme/colors_manger.dart';
 import 'package:news_app/features/news/screens/details_screen.dart';
 
 class NewsItem extends StatelessWidget {
-  const NewsItem({super.key});
+  const NewsItem({super.key, required this.news});
+  final NewsModel news;
 
   @override
   Widget build(BuildContext context) {
@@ -12,22 +14,28 @@ class NewsItem extends StatelessWidget {
       onTap:
           () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DetailsScreen()),
+            MaterialPageRoute(builder: (context) => DetailsScreen(
+              news:news,
+            )),
           ),
       child: Container(
         margin: const EdgeInsets.only(bottom: 10.0),
         padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          color: ColorsManger.greyColor,
-          borderRadius: BorderRadius.circular(12.0),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
         child: Row(
           children: [
-            Image.asset(
-              'assets/images/test_news.png',
+            Image.network(
+              news.imageUrl,
               fit: BoxFit.cover,
               height: 80,
               width: 80,
+              errorBuilder:
+                  (context, error, stackTrace) => Image.network(
+                    'https://i.quotev.com/b2gtjqawaaaa.jpg',
+                    fit: BoxFit.cover,
+                    height: 80,
+                    width: 80,
+                  ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -35,12 +43,16 @@ class NewsItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Crystals dancing to the tune of light might replace batteries',
+                    news.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: AppStyles.font14Weight600,
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'By John Doe',
+                    news.author,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: AppStyles.font9Weight800.copyWith(
                       color: ColorsManger.lightGreyColor,
                     ),

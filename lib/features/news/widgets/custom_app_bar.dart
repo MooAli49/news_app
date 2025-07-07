@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/style/app_styles.dart';
 import 'package:news_app/core/theme/colors_manger.dart';
+import 'package:news_app/core/theme/theme_cubit.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key, this.isDeatailsScreen = false});
@@ -30,42 +32,16 @@ class CustomAppBar extends StatelessWidget {
           const Spacer(),
           const Text('News', style: AppStyles.font17Weight800Red),
           const Spacer(),
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              const Icon(
-                Icons.notifications,
-                size: 30,
-                color: ColorsManger.darkGreyColor,
-              ),
-              Positioned(
-                right: 0,
-                top: 13,
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorsManger.blackColor,
-                      width: 1.5,
-                    ),
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '3',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: ColorsManger.redColor,
-                      fontFamily: AppStyles.fontFamily,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
+          IconButton(
+            icon: Icon(
+              Icons.dark_mode,
+              size: 30,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            onPressed: () {
+              final themeCubit = context.read<ThemeCubit>();
+              themeCubit.toggleTheme();
+            },
           ),
         ],
       ),

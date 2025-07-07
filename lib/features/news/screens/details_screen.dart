@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/model/news_model.dart';
 import 'package:news_app/core/style/app_styles.dart';
 import 'package:news_app/features/news/widgets/custom_app_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+  const DetailsScreen({super.key, required this.news});
+  final NewsModel news;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class DetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Crystals dancing to the tune of light might replace batteries',
+                        news.title,
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -33,28 +35,28 @@ class DetailsScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'By John Doe',
+                            news.author,
                             style: TextStyle(fontSize: 16, color: Colors.grey),
                           ),
                           const Spacer(),
                           Text(
-                            'Published on 20th Oct 2023',
+                            news.publishedAt,
                             style: AppStyles.font9Weight800Yellow,
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
-                      Image.asset(
-                        'assets/images/test_news.png',
+                      Image.network(
+                        news.imageUrl,
                         fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, error, stackTrace) => Image.network(
+                              'https://i.quotev.com/b2gtjqawaaaa.jpg',
+                              fit: BoxFit.cover,
+                            ),
                       ),
                       const SizedBox(height: 20),
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-                        'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-                        'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                      Text(news.description, style: TextStyle(fontSize: 16)),
                     ],
                   ),
                 ),

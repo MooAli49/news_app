@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/features/news/controller/news_cubit.dart';
 import 'package:news_app/features/news/widgets/categories_section.dart';
 import 'package:news_app/features/news/widgets/custom_app_bar.dart';
 import 'package:news_app/features/news/widgets/custom_search_bar.dart';
@@ -13,6 +15,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<String> categories = [
+    'general',
+    'business',
+    'entertainment',
+    'health',
+    'science',
+    'sports',
+    'technology',
+  ];
+  String selectedCategory = 'general';
+
+  void onCategorySelected(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+    context.read<NewsCubit>().fetchCategoryNews(category);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SliverToBoxAdapter(child: const SizedBox(height: 20)),
               SliverList(
-                delegate: SliverChildListDelegate([const CategoriesSection()]),
+                delegate: SliverChildListDelegate([
+                  CategoriesSection(
+                    categories: categories,
+                    onCategorySelected: onCategorySelected,
+                    selectedCategory: selectedCategory,
+                  ),
+                ]),
               ),
               SliverToBoxAdapter(child: const SizedBox(height: 20)),
-              SliverList(
+              SliverFillViewport(
                 delegate: SliverChildListDelegate([const NewsSection()]),
               ),
             ],
